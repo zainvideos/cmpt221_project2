@@ -2,35 +2,48 @@
 $servername = "localhost";
 $username = "root";
 $password = "yoursql";
+$dbname = "cmpt221proj2";
 
 //	Create	connection
-$conn	=	mysqli_connect($servername,	$username,	$password);
+$conn	=	mysqli_connect($servername,	$username,	$password, $dbname);
 //	Check	connection
 if	(!$conn)	{
     die("Connection	failed:	"	.	mysqli_connect_error());
 }
 
-/*
-//	Create	database
-$sql = "CREATE	DATABASE cmpt221proj2";
 
-$sql	=	"CREATE	TABLE	Students	(
-cwid varchar(9) 	PRIMARY	KEY,
-firstname	VARCHAR(30)	NOT	NULL,
-las tname	VARCHAR(30)	NOT	NULL,
-email	VARCHAR(50),
-reg_date	TIMESTAMP
-)";
+//	test student	database
+/*
+ *
+ */
+
+/*
+
+$sql= "INSERT INTO students (cwid, firstname, lastname, gender, accomodations, dinepref, dormname, reg_date) VALUES (222222222, 'jo', 'smoe', 'male', 'no', 'yes', 'Leo', CURRENT_TIMESTAMP);";
+
+$sql2= "UPDATE dorms SET spotsleft = spotsleft + 1 WHERE dormname = 'Midrise' and spotsleft >= 0;"; //set dormname to $dropdown
+
+
+
+
 
 if	(mysqli_query($conn, $sql))	{
-    echo	"Database	created	successfully";
+    echo	"query returned successfully";
 }	else	{
-    echo	"Error	creating	database:	"	.	mysqli_error($conn);
+    echo	"Error	with	database:	"	.	mysqli_error($conn);
 }
 
-*/
+if	(mysqli_query($conn, $sql2))	{
+    echo	"query returned successfully";
+}	else	{
+    echo	"Error	with	database:	"	.	mysqli_error($conn);
+}
+
 
 
 mysqli_close($conn);
+
+*/
+
 
 ?>
