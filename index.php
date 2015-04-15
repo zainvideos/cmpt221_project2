@@ -3,7 +3,6 @@
 
      <?php
      require "mysql_connect.php";
-     //require "globals.php"
 
 
      ?>
@@ -131,62 +130,8 @@
 
       <?php
 
-      print_r($_POST);
 
-      if(isset($_POST['Continue']))
-      {
-          print '<br><br> If all looks well, i can finally have life.';
-      }
-
-      if(isset($_POST['formage']))
-      {
-          print '<br><br> If all looks well, i can finally have life.';
-      }
-
-      if(isset($_POST['submit']))
-      {
-          print '<br><br> If all looks well, i can finally have life.';
-      }
-
-      if(isset($_POST['button']))
-      {
-          print '<br><br> If all looks well, i can finally have life.';
-      }
-
-
-
-
-      if (isset($_POST['gender'])) { //lets try without needing another post.
-
-
-          $sql= "INSERT INTO students (cwid, firstname, lastname, gender, accomodations, dinepref, dormname, reg_date) VALUES (222222222, 'jo', 'smoe', 'male', 'no', 'yes', 'Leo', CURRENT_TIMESTAMP);";
-
-          $sql2= "UPDATE dorms SET spotsleft = spotsleft + 1 WHERE dormname = 'Midrise' and spotsleft >= 0;"; //set dormname to $dropdown
-
-
-
-          /*$res = mysqli_query($conn, $sql2)
-              or die('Error.');*/
-
-          if	(mysqli_query($conn, $sql))	{
-              echo	"query returned successfully";
-          }	else	{
-              echo	"Error	with	database:	"	.	mysqli_error($conn);
-          }
-
-          if	(mysqli_query($conn, $sql2))	{
-              echo	"query returned successfully";
-          }	else	{
-              echo	"Error	with	database:	"	.	mysqli_error($conn);
-          }
-
-
-
-
-          print '<div id="step2">';
-          print '<h2>Step 2/3: </br> </h2>';
-          print '<h2> Please review the following information </h2>';
-
+      if (isset($_POST['gender'])) {
 
           //VARIABLE NAMES
 
@@ -203,6 +148,75 @@
           $year = $_POST['year'];
           $dropdown = $_POST['dorm_hidden'];
           $needs = $_POST['needs'];
+
+
+
+          $sql= "INSERT INTO students (cwid, firstname, lastname, gender, accomodations, dinepref, dormname, reg_date) VALUES ('$cwid', '$formFirst', '$formLast', '$gender', '$needs', '$dining', '$dropdown', CURRENT_TIMESTAMP)";
+
+          $sql2= "UPDATE dorms SET spotsleft = spotsleft - 1 WHERE dormname = '$dropdown' and spotsleft > 0"; //set dormname to $dropdown
+
+          $sqlDisplay = "SELECT spotsleft, dormname from dorms where '$dropdown' = dormname ";
+           /*   $result = mysql_query($sqlDisplay);
+              while($row = mysql_fetch_array($result)) {
+                  echo $row["students.spotslwft"];
+              }      */
+
+          function check_results($results)
+          {
+              global $conn;
+
+              if ($results != true)
+                  echo '<p>There is an error = ' . mysqli_error($conn) . '</p>';
+          }
+
+              $results = mysqli_query($conn, $sqlDisplay);
+              check_results($results);
+
+              if ($results) {
+                  while ($row = mysqli_fetch_array($results)) { //
+
+                     // echo '<h3>' . $row['dormname'];
+
+                      echo '<h3>' . $row['spotsleft']  ." left in ".$row['dormname'];
+
+
+                  }
+              }
+
+
+
+          //$SQL = "INSERT INTO students (cwid, firstname, lastname, gender, accomodations, dinepref, dormname, reg_date) VALUES ('$cwid', '$formFirst', '$formLast', '$gender', '$needs', '$dining', '$dropdown', CURRENT_TIMESTAMP)";
+
+          /*$res = mysqli_query($conn, $sql2)
+              or die('Error.');*/
+
+          if	(mysqli_query($conn, $sql))	{
+              echo	"query returned successfully";
+          }	else	{
+              echo	"Error	with	database:	"	.	mysqli_error($conn);
+          }
+
+          if	(mysqli_query($conn, $sql2))	{
+              echo	"query returned successfully";
+          }	else	{
+              echo	"Error	with	database:	"	.	mysqli_error($conn);
+          }
+
+          if	(mysqli_query($conn, $sqlDisplay))	{
+              echo	"";
+          }	else	{
+              echo	"Error	with	database:	"	.	mysqli_error($conn);
+          }
+
+
+
+
+          print '<div id="step2">';
+          print '<h2>Step 2/3: </br> </h2>';
+          print '<h2> Please review the following information </h2>';
+
+
+
 
 
           //GENDER
@@ -308,43 +322,20 @@
 
 <?php
 
-//$confcode =
+$confcode = md5($formFirst) + md5($formLast);
 
-print '<h5>Your confiration code is . " " .</h5> ';
 
-if(isset($_POST['Continue']))
-{
-    print '<br><br> If all looks well, i can finally have life.';
-}
 
-if(isset($_POST['formage']))
-{
-    print '<br><br> If all looks well, i can finally have life.';
-}
+print "<p>Your confirmation code is: $confcode ";
 
-if(isset($_POST['submit']))
-{
-    print '<br><br> If all looks well, i can finally have life.';
-}
-
-if(isset($_POST['button']))
-{
-    print '<br><br> If all looks well, i can finally have life.';
-
-}
-
-print_r($_POST);
 
 ?>
 
 
 
 
-</div>
-
-
-
-	<br>
+      </div>
+	 <br>
 	</div>
    </body>
  </html>
