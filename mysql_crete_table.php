@@ -1,9 +1,9 @@
 <?php
-$sql = "CREATE DATABASE myDB";
+$sql = "CREATE DATABASE ";
 if (mysqli_query($conn, $sql))
 
-    CREATE TABLE Students (
-    firstname VARCHAR(30) NOT NULL,
+CREATE TABLE Students (
+firstname VARCHAR(30) NOT NULL,
 lastname VARCHAR(30) NOT NULL,
 email VARCHAR(50),
 reg_date TIMESTAMP

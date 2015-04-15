@@ -1,6 +1,11 @@
  <html>
  <head>
 
+     <?php
+     include mysql_connect.php;
+
+     ?>
+
      <!-- derpina everyday derp derp -->
 
       <title>Dorm Form</title>
@@ -245,7 +250,7 @@
 
 
 
-print "<p> Your answer was <strong>$needs</strong> regarding special accommodation.";
+print "<p> Your answer was $needs regarding special accommodation.";
 
 print '<br><br> If all looks well, press the submit button below to confirm your selection. Otherwise, please make the appropriate changes in the form above.';
 
