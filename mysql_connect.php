@@ -9,6 +9,8 @@ $conn	=	mysqli_connect($servername,	$username,	$password);
 if	(!$conn)	{
     die("Connection	failed:	"	.	mysqli_connect_error());
 }
+
+/*
 //	Create	database
 $sql = "CREATE	DATABASE cmpt221proj2";
 
@@ -26,7 +28,7 @@ if	(mysqli_query($conn, $sql))	{
     echo	"Error	creating	database:	"	.	mysqli_error($conn);
 }
 
-
+*/
 
 
 mysqli_close($conn);

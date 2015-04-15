@@ -2,7 +2,7 @@
  <head>
 
      <?php
-     include mysql_connect.php;
+     require "mysql_connect.php";
 
      ?>
 
@@ -17,7 +17,10 @@
 
 
     var dorms = {
-        Freshman: ['Champagnat','Leo','Sheahan'],
+        Freshman: ['Champagnat ','Leo',"Sheahan <?php $result = mysql_query("SELECT `spotsleft` FROM DORM WHERE dormname='Leo'") or die(mysql_error());
+                                                while($row = mysql_fetch_assoc($result)){
+                                                      echo $row['spotsleft'];
+                                                } ?>" ],
         Sophmore: ['Midrise','Lower West','Talmadge'],
         Junior_Senior: ['Lower Fulton','Upper Fulton','Upper West']
     };
@@ -121,7 +124,7 @@
 
 
             </script>
-            <input type="submit" onclick="dormToHidden();" value="Continue">
+            <input type="submit" onclick="dormToHidden();" value="Continue" form action="mysql_submit.php">
   </form>
     </div>
 
@@ -153,6 +156,32 @@
 	  $year = $_POST['year'];
 	  $dropdown = $_POST['dorm_hidden'];
 	  $needs = $_POST['needs'];
+
+
+
+
+
+function addtoDB($conn) {
+    $Firstname = $_POST['Firstname'];
+    $Lastname = $_POST['Lastname'];
+    //Forst the first letter uppercase on first and last names.
+    $formFirst = ucfirst($Firstname);
+    $formLast = ucfirst($Lastname);
+
+    $Fullname = $formFirst.' '.$formLast;
+
+    $cwid = $_POST['cwid'];
+    $gender = $_POST['gender'];
+    $dining = $_POST['dining'];
+    $year = $_POST['year'];
+    $dropdown = $_POST['dorm_hidden'];
+    $needs = $_POST['needs'];
+
+
+
+    //INSERT INTO students(cwid, firstname, lastname, gender, accomodations, dinepref, dormname) values ($cwid, $formFirst, $Lastname, $gender, $needs, $dining, $dropdown); //the reg_date should populate automatically
+}
+
 
 	  //NAME CHECK
 
@@ -257,9 +286,13 @@ print '<br><br> If all looks well, press the submit button below to confirm your
 print '<p> You can always <a href="javascript:history.back()">Go Back</a> and make any changes </p>';
 
 
-print '<br><button class="button" onclick="$(\'#hidden\').toggle();$(\'#step1\').toggle();$(\'#step2\').toggle();" >Submit!</button>';
+
+print '<br><button class="button" onclick="$(\'#hidden\').toggle();$(\'#step1\').toggle();$(\'#step2\').toggle();
+
+" >Submit!</button>';
 
 	}
+
 
 
 print '</div>';
@@ -333,7 +366,11 @@ print '</div>';
 print "<p> Your answer was <strong>$needs</strong> regarding special accommodation.";
 
 
+
 ?>
+
+
+
 
 </div>
 
