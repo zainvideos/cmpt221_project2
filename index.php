@@ -4,8 +4,25 @@
      <?php
      require "mysql_connect.php";
 
+     //include('login.php');
+     if (isset($_SESSION['login_user'])) {
+         header("Location: profile.php"); // Take the user to their profile page
+     }
 
      ?>
+
+     <div id="login">
+         <center>
+<p>Existing Users:</p>
+         <form action="login.php" method="post">
+             <input id=name name=username placeholder=username type=text> <br />
+             <input id=password name=password placeholder=******* type=password> <br />
+             <center><input name=submit type=submit value=login></center>
+
+         </form>
+
+     </div>
+
 
      <!-- derpina everyday derp derp -->
 
